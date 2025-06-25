@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { District } from './entities/district.entity';
 import { Repository } from 'typeorm';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class DistrictService {
     constructor(
         @InjectRepository(District)
-        private readonly districtRepository: Repository<District>
+        private readonly districtRepository: Repository<District>,
+        @InjectRepository(User)
+        private readonly userRepository: Repository<User>
     ) { }
     getOneById(provinceId: number) {
 
@@ -1222,7 +1225,17 @@ export class DistrictService {
         return "success";
     }
 
-    deleteAll() {
-        return this.districtRepository.clear()
+    async deleteAll() {
+        const user = await this.userRepository.find();
+        if (!user) throw new NotFoundException('User not found');
+        for (let i = 0; i < user.length; i++) {
+            await this.userRepository.delete(user[i].id);
+        }
+        const district = await this.districtRepository.find();
+        if (!district) throw new NotFoundException('District not found');
+        for (let i = 0; i < district.length; i++) {
+            await this.districtRepository.delete(district[i].id);
+        }
+        return "success";
     }
 }

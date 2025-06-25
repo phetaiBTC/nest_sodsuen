@@ -5,11 +5,12 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { RolesGuard } from '../auth/guards/role.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { SystemRoles } from 'src/common/enums/system-roles.enum';
+import { Public } from 'src/common/decorators/auth.decorator';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
+  @Public()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);

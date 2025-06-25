@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Province } from './entities/province.entity';
 import { Repository } from 'typeorm';
@@ -33,7 +33,7 @@ export class ProvinceService {
             { id: 17, name: 'ອັດຕະປື', name_en: 'Attapu' },
             { id: 18, name: 'ໄຊສົມບູນ', name_en: 'Sisomboun' }
         ]
-        for(let i = 0; i < Province.length; i++) {
+        for (let i = 0; i < Province.length; i++) {
             const ceateProvince = this.provinceRepository.create(Province[i]);
             await this.provinceRepository.save(ceateProvince);
         }
@@ -41,7 +41,12 @@ export class ProvinceService {
         return { message: 'Province added successfully' };
     }
 
-    deleteAll() {
-        return this.provinceRepository.clear()
+    async deleteAll() {
+        const Province = await this.provinceRepository.find();
+        if (!Province) throw new NotFoundException('Province not found');
+        for (let i = 0; i < Province.length; i++) {
+            await this.provinceRepository.delete(Province[i].id);
+        }
+        return "success";
     }
 }
