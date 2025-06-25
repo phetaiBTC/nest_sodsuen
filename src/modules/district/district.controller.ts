@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { DistrictService } from './district.service';
 
 @Controller('district')
@@ -13,5 +13,10 @@ export class DistrictController {
   @Get()
   getAll() {
     return this.districtService.getAll();
+  }
+
+  @Post()
+  addProvince() {
+    return this.districtService.createDistrict();
   }
 }
