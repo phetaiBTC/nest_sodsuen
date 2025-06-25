@@ -1223,6 +1223,6 @@ export class DistrictService {
     }
 
     deleteAll() {
-        return this.districtRepository.delete({});
+        return this.districtRepository.clear()
     }
 }

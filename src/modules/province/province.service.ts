@@ -42,6 +42,6 @@ export class ProvinceService {
     }
 
     deleteAll() {
-        return this.provinceRepository.delete({});
+        return this.provinceRepository.clear()
     }
 }
