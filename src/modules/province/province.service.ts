@@ -40,4 +40,8 @@ export class ProvinceService {
 
         return { message: 'Province added successfully' };
     }
+
+    deleteAll() {
+        return this.provinceRepository.delete({});
+    }
 }

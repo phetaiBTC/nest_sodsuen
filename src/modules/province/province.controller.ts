@@ -1,4 +1,4 @@
-import { Controller, Get, Post} from '@nestjs/common';
+import { Controller, Delete, Get, Post} from '@nestjs/common';
 import { ProvinceService } from './province.service';
 
 @Controller('province')
@@ -12,5 +12,10 @@ export class ProvinceController {
   @Post()
   addProvince() {
     return this.provinceService.addProvince();
+  }
+
+  @Delete()
+  deleteAll() {
+    return this.provinceService.deleteAll();
   }
 }

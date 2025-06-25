@@ -1221,4 +1221,8 @@ export class DistrictService {
         }
         return "success";
     }
+
+    deleteAll() {
+        return this.districtRepository.delete({});
+    }
 }

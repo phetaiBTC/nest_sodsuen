@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { DistrictService } from './district.service';
 
 @Controller('district')
@@ -18,5 +18,10 @@ export class DistrictController {
   @Post()
   addProvince() {
     return this.districtService.createDistrict();
+  }
+
+  @Delete()
+  deleteAll() {
+    return this.districtService.deleteAll();
   }
 }
