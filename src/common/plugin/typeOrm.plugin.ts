@@ -1,14 +1,17 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { Module } from '@nestjs/common';
+import { Module, Global } from '@nestjs/common';
 import { ConfigModule, ConfigService } from "@nestjs/config";
+// import { TransactionModule } from "../transation/transition.module";
 
+@Global()
 @Module({
     imports: [
+        // TransactionModule,
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
             useFactory: (configService: ConfigService) => ({
-                type: 'postgres',
+                type: 'mysql',
                 host: configService.getOrThrow('DB_HOST'),
                 port: configService.getOrThrow('DB_PORT'),
                 username: configService.getOrThrow('DB_USERNAME'),
@@ -17,7 +20,9 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
                 synchronize: true,
                 autoLoadEntities: true,
             }),
+            
         })
     ],
+    // exports: [TransactionModule]
 })
-export class TypeOrmPlugin { }
+export class TypeOrmPlugin{ }
