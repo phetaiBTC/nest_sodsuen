@@ -1,5 +1,6 @@
 import { Controller, Delete, Get, Post} from '@nestjs/common';
 import { ProvinceService } from './province.service';
+import { Public } from 'src/common/decorators/auth.decorator';
 
 @Controller('province')
 export class ProvinceController {
@@ -9,13 +10,4 @@ export class ProvinceController {
     return this.provinceService.getAll();
   }
 
-  @Post()
-  addProvince() {
-    return this.provinceService.addProvince();
-  }
-
-  @Delete()
-  deleteAll() {
-    return this.provinceService.deleteAll();
-  }
 }

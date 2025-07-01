@@ -1,4 +1,4 @@
-import { MyBaseEntity } from 'src/common/BaseEntity/BaseEntity';
+import { MyBaseEntity } from '../../../common/BaseEntity/BaseEntity'
 import { District } from 'src/modules/district/entities/district.entity';
 import { Role } from 'src/modules/roles/entities/role.entity';
 import { Column, PrimaryGeneratedColumn,Entity, ManyToOne } from 'typeorm';

@@ -16,6 +16,9 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,      // <--- สำคัญมาก
+    "paths": {
+      "src/*": ["src/*"]   // <--- ใช้ path alias `src/...`
+    },
   }
 }

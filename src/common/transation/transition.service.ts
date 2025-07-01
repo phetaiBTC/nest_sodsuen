@@ -20,6 +20,6 @@ export class TransactionManagerService implements ITransactionManager {
             throw error;
         } finally {
             await queryRunner.release();
-        }
-    }
+        }
+    }
 }
