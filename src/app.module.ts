@@ -8,13 +8,23 @@ import { ProvinceModule } from './modules/province/province.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { RolesModule } from './modules/roles/roles.module';
+import { TransactionModule } from './common/transation/transition.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({
-    isGlobal: true,
-    envFilePath: '.env'
-  }), TypeOrmPlugin, UsersModule, DistrictModule, ProvinceModule, AuthModule, RolesModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    TypeOrmPlugin,
+    UsersModule,
+    DistrictModule,
+    ProvinceModule,
+    AuthModule,
+    RolesModule,
+    TransactionModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
