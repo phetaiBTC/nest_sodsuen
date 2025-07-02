@@ -34,4 +34,9 @@ export class SuppliersController {
   remove(@Param('id') id: string) {
     return this.suppliersService.remove(+id);
   }
+
+  @Patch('is_active/:id')
+  is_active(@Param('id') id: string) {
+    return this.suppliersService.is_active(+id);
+  }
 }

@@ -17,7 +17,6 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
                 synchronize: true,
                 autoLoadEntities: true,
             }),
-            
         })
     ],
 })

@@ -4,6 +4,7 @@ import { UpdateUnitDto } from './dto/update-unit.dto';
 import { Like, Repository } from 'typeorm';
 import { Unit } from './entities/unit.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { formatTimeUtil } from 'src/common/util/formatTime.util';
 
 @Injectable()
 export class UnitsService {
@@ -19,14 +20,27 @@ export class UnitsService {
     }
   }
 
-  findAll() {
-    return this.unitRepository.find();
+  async findAll() {
+    const units = await this.unitRepository.find();
+    const mapper = units.map((unit) => ({
+      id: unit.id,
+      name: unit.name,
+      symbol: unit.symbol,
+      description: unit.description,
+      createdAt: formatTimeUtil(unit.createdAt),
+      updatedAt: formatTimeUtil(unit.updatedAt),
+    }))
+    return mapper
   }
 
   async findOne(id: number) {
     const unit = await this.unitRepository.findOne({ where: { id } });
     if (!unit) throw new NotFoundException('Unit not found');
-    return unit;
+    return {
+      ...unit,
+      createdAt: formatTimeUtil(unit.createdAt),
+      updatedAt: formatTimeUtil(unit.updatedAt),
+    };
   }
 
   async update(id: number, updateUnitDto: UpdateUnitDto) {
@@ -49,10 +63,19 @@ export class UnitsService {
   }
 
   async search(name: string) {
-    return this.unitRepository.find({
+    const units = await this.unitRepository.find({
       where: {
         name: Like(`%${name}%`)
       }
     });
+    const mapper = units.map((unit) => ({
+      id: unit.id,
+      name: unit.name,
+      symbol: unit.symbol,
+      description: unit.description,
+      createdAt: formatTimeUtil(unit.createdAt),
+      updatedAt: formatTimeUtil(unit.updatedAt),
+    }))
+    return mapper
   }
 }

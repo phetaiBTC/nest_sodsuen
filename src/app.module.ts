@@ -12,6 +12,7 @@ import { TransactionModule } from './common/transation/transition.module';
 import { UnitsModule } from './modules/units/units.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { SuppliersModule } from './modules/suppliers/suppliers.module';
+import { ProductsModule } from './modules/products/products.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { SuppliersModule } from './modules/suppliers/suppliers.module';
     UnitsModule,
     CategoriesModule,
     SuppliersModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

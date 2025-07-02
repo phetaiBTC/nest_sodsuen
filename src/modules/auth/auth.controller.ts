@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Request, Response } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UserToken } from 'src/common/decorators/user.decorator';
@@ -14,8 +14,11 @@ export class AuthController {
   }
 
   @Get('profile')
-  profile(@UserToken() user:string) {
+  profile(@UserToken() user: string) {
     return { token: user };
   }
-
+  // @Post('logout')
+  // async logout(@Request() req: any) {
+  //   return this.authService.logout(req);
+  // }
 }

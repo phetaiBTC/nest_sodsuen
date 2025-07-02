@@ -22,4 +22,9 @@ export class AuthService {
     return user
   }
 
+  // async logout(req: any) {
+  //   await req.logout();
+  //   return { message: 'Logout successfully' };
+  // }
+
 }
