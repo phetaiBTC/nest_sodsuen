@@ -13,6 +13,7 @@ import { UnitsModule } from './modules/units/units.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { SuppliersModule } from './modules/suppliers/suppliers.module';
 import { ProductsModule } from './modules/products/products.module';
+import { ProductUnitsModule } from './modules/product_units/product_units.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ProductsModule } from './modules/products/products.module';
     CategoriesModule,
     SuppliersModule,
     ProductsModule,
+    ProductUnitsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
