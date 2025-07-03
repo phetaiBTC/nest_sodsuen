@@ -3,6 +3,7 @@ import { AppDataSource } from "../data-source";
 import { seedDistricts } from "./district.seed";
 import { seedProvinces } from "./province.seed";
 import { seedRoles } from "./role.seed";
+// import { seedUnits } from "./unit.seed";
 import { seedUsers } from "./user.seed";
 
 AppDataSource.initialize()
@@ -12,6 +13,7 @@ AppDataSource.initialize()
         await seedDistricts(dataSource);
         await seedRoles(dataSource);
         await seedUsers(dataSource);
+        // await seedUnits(dataSource);
 
         console.log('✅ Seeding finished.');
         process.exit(0);
