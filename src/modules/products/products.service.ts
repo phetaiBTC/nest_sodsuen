@@ -8,6 +8,7 @@ import { TRANSACTION_MANAGER_SERVICE } from 'src/common/constants/inject-key';
 import { TransactionManagerService } from 'src/common/transation/transition.service';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { compressAndSaveImage } from 'src/common/util/compressAndSaveImage.util';
+import { formatTimeUtil } from 'src/common/util/formatTime.util';
 
 @Injectable()
 export class ProductsService {
@@ -22,7 +23,7 @@ export class ProductsService {
 
     @Inject(TRANSACTION_MANAGER_SERVICE)
     private transactionManager: TransactionManagerService,
-  ) {}
+  ) { }
 
   async create(createProductDto: CreateProductDto) {
     const { units, ...productData } = createProductDto;
@@ -36,7 +37,7 @@ export class ProductsService {
         // );
         const lastProduct = await manager.findOne(Product, {
           where: {},
-          order: { created_at: 'DESC' },
+          order: { createdAt: 'DESC' },
         });
 
         let generatedCode = 'P001';
@@ -73,9 +74,21 @@ export class ProductsService {
   }
 
   async findAll() {
-    return this.productRepository.find({
-      relations: ['product_units', 'category', 'base_unit'],
-    });
+    const products = await this.productRepository.find({ relations: ['product_units', 'category', 'base_unit','product_units.product'] });
+    const mapper = products.map(({ category_id,base_unit_id, ...product }) => ({
+      ...product,
+      category:product.category.name,
+      base_unit:product.base_unit.name,
+      product_units: product.product_units.map((unit) => {
+        return {
+          ...unit,
+          product: unit.product,
+        };
+      }),
+      createdAt: formatTimeUtil(product.createdAt),
+      updatedAt: formatTimeUtil(product.updatedAt),
+    }))
+    return mapper
   }
 
   async findOne(id: number) {

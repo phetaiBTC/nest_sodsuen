@@ -14,9 +14,10 @@ import {
 import { ProductUnit } from '../../product_units/entities/product_unit.entity';
 import { Unit } from 'src/modules/units/entities/unit.entity';
 import { Category } from 'src/modules/categories/entities/category.entity';
+import { MyBaseEntity } from 'src/common/BaseEntity/BaseEntity';
 
 @Entity('products')
-export class Product {
+export class Product extends MyBaseEntity {
   @PrimaryGeneratedColumn()
   product_id: number;
 
@@ -58,12 +59,6 @@ export class Product {
 
   @Column({ default: true })
   is_active: boolean;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 
   @Column({ nullable: true })
   image: string;
