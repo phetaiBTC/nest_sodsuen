@@ -1,7 +1,8 @@
-import { IsNumber, IsOptional, IsString, IsBoolean } from 'class-validator';
+import { IsNumber, IsOptional, IsString, IsBoolean} from 'class-validator';
 
 export class CreateProductUnitDto {
   @IsNumber()
+  @IsOptional()
   product_id: number;
 
   @IsNumber()

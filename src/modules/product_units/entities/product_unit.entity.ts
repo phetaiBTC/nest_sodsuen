@@ -8,9 +8,10 @@ import {
 } from 'typeorm';
 import { Product } from '../../products/entities/product.entity';
 import { Unit } from '../../units/entities/unit.entity';
+import { MyBaseEntity } from 'src/common/BaseEntity/BaseEntity';
 
 @Entity('product_units')
-export class ProductUnit {
+export class ProductUnit extends MyBaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -45,7 +46,4 @@ export class ProductUnit {
 
   @Column({ default: true })
   is_active: boolean;
-
-  @CreateDateColumn()
-  created_at: Date;
 }

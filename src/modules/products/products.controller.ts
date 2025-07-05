@@ -10,6 +10,7 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -19,6 +20,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import * as path from 'path';
 import { Express } from 'express';
 import { Patch } from '@nestjs/common';
+import { PaginationReponse } from 'src/common/pagination/pagination.reponse';
+import { Product } from './entities/product.entity';
+import { ProductListDto } from './dto/product-list.dto';
+import { ProductQueryDto } from './dto/best.query.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -30,8 +35,10 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  findAll(
+    @Query() query: ProductQueryDto,
+  ): Promise<PaginationReponse<ProductListDto>> {
+    return this.productsService.findAll(+query.page, +query.limit, query);
   }
 
   @Get(':id')
